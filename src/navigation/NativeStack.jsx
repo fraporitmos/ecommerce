@@ -26,7 +26,7 @@ function NativeStack() {
           headerShown: false,
         }}
         name="BottonTab"
-         component={BottonTab} />
+        component={BottonTab} />
 
     </Stack.Navigator>
   );

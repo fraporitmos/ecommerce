@@ -60,7 +60,8 @@ const SignIn = NativeStack => {
                 textButton="Sign Up"
                 stylesAdd={{
                     container: {
-                        marginTop: 24
+                        marginTop: 24,
+
                     },
                 }}
                 onPress={() => { goToSignIn()}}

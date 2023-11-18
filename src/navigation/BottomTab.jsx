@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import Icon from 'react-native-vector-icons/Feather';
+import HomeDetailStack from './HomeDetailStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,8 +18,8 @@ function ButtomTab() {
       }}
     >
       <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="HomeDetailScreen"
+        component={HomeDetailStack}
         options={{
           tabBarLabel: "Home",
           tabBarLabelStyle: { fontSize: 16, color: '#000', fontWeight: 'bold' },
