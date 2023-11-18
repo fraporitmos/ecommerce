@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather';
+import { StoreContext } from '../context/StoreContext';
 
-const ItemProduct = ({ img, title, price , nav, object}) => {
+
+const ItemProduct = ({ img, title, price, nav, object }) => {
+
+
   return (
     <View style={styles.containerCard}>
-      <TouchableOpacity onPress={()=>{nav.navigation.navigate("DetailScreen",object)}}>
+      <TouchableOpacity onPress={() => { nav.navigation.navigate("DetailScreen", object) }}>
         <Image style={styles.imageCard}
           source={{ uri: img }} />
-        <TouchableOpacity
-          style={styles.containerSaved}
-        >
-          <Icon name="heart" size={24} color="#000" />
-        </TouchableOpacity>
+     
 
         <Text
           style={styles.textProduct}

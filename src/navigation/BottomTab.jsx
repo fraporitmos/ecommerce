@@ -3,15 +3,23 @@ import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import Icon from 'react-native-vector-icons/Feather';
 import HomeDetailStack from './HomeDetailStack';
+import { useEffect } from 'react';
 
 const Tab = createBottomTabNavigator();
 
 function ButtomTab() {
+
+  useEffect( ()=>{
+    //TODO: Context In App
+
+  },[])
+
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
           height: 60,
+        //  display:'none',
           borderTopColor: '#fff'
         },
         headerShown: false,

@@ -4,12 +4,15 @@ import { FlatList, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 import ItemProduct from '../components/ItemProduct'
 import Icon from 'react-native-vector-icons/Feather';
 import ButtonPrimary from '../components/ButtonPrimary';
+import { StoreContext } from '../context/StoreContext';
 
 const HomeScreen = NativeStack => {
   const [products, setProducts] = useState([])
   const [enabledfilter, setEnableFilter] = useState('woman')
 
+
   useEffect(() => {
+    
     axios.get("https://fakestoreapi.com/products")
       .then((resp) => setProducts(resp.data))
   }, [])

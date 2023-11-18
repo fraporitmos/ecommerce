@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import ButtonPrimary from '../components/ButtonPrimary';
 
 const Onboarding = NativeStack => {
+
+
     const goToSignIn = () => {
         NativeStack.navigation.navigate("SignIn")
     }
