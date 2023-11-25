@@ -1,7 +1,8 @@
 import { createContext } from "react";
 
 export const initialState = {
-    favoritesArray: []
+    favoritesArray: [],
+    currentScreen: 'HomeScreen'
 };
 
 export const StoreContext = createContext({initialState});

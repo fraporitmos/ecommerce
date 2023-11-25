@@ -1,19 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Feather';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StoreContext } from '../context/StoreContext';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ItemProduct = ({ img, title, price, nav, object }) => {
+  const { state, removeFavorite } = useContext(StoreContext)
 
+
+  useEffect(() => {
+    storeData(JSON.stringify(state.favoritesArray))
+  }, [state.favoritesArray])
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('saved', value);
+    } catch (e) {
+    }
+  };
 
   return (
     <View style={styles.containerCard}>
+
       <TouchableOpacity onPress={() => { nav.navigation.navigate("DetailScreen", object) }}>
         <Image style={styles.imageCard}
           source={{ uri: img }} />
-     
-
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert('Eliminar favorito', 'Seguro que deseas quitar este elemento de favoritos?', [
+              {
+                text: 'Cancelar',
+                onPress: () => null,
+                style: 'cancel',
+              },
+              {
+                text: 'Si', onPress: () => removeFavorite(object)
+              },
+            ]);
+          }}
+          style={{
+            position: 'absolute',
+            right: 4, display: state.currentScreen === 'DetailScreen' ? 'flex' : 'none'
+          }}>
+          <Ionicons name="trash" size={24} color="#000" />
+        </TouchableOpacity>
         <Text
           style={styles.textProduct}
           numberOfLines={1}
@@ -72,6 +102,6 @@ const styles = StyleSheet.create({
   textPrice: {
     color: '#000',
     fontSize: 18,
+  },
 
-  }
 })

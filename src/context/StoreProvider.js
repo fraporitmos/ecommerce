@@ -28,9 +28,17 @@ export const StoreProvider = ({children}) => {
         dispatch({type: 'ADD_FAVORITE', payload: objectProduct})
     }
 
+    const changeScreen = (newScreen) => {
+      dispatch({type: 'CHANGE_SCREEN', payload:newScreen })
+    }
+
+    const removeFavorite = (objectProduct) => {
+        dispatch({type:'REMOVE_FAVORITE', payload: objectProduct})
+    }
+
     return (
         <StoreContext.Provider
-         value={{state,addFavorite,}}>
+         value={{state,addFavorite,removeFavorite,changeScreen}}>
             {children}
         </StoreContext.Provider>
 

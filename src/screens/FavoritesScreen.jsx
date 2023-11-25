@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ItemProduct from '../components/ItemProduct';
 import { StoreContext } from '../context/StoreContext';
 
