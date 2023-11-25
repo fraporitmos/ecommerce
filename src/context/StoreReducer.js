@@ -5,11 +5,29 @@ export const StoreReducer = (state, action) => {
                 ...state,
                 favoritesArray: action.payload
             }
-
+        case 'INITIAL_CART':
+            return {
+                ...state,
+                cartArray: action.payload
+            }
         case 'ADD_FAVORITE':
             return {
                 ...state,
                 favoritesArray: [...state.favoritesArray, action.payload]
+            }
+
+        case 'ADD_TO_CART':
+            return {
+                ...state,
+                cartArray: [...state.cartArray, action.payload]
+            }
+
+        case 'REMOVE_TO_CART':
+            return {
+                ...state,
+                cartArray: state.cartArray.filter(product => {
+                    return product.id != action.payload.id
+                })
             }
         case 'REMOVE_FAVORITE':
             return {

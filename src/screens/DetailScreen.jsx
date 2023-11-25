@@ -8,29 +8,29 @@ import Snackbar from 'react-native-snackbar';
 
 const Detail = NativeStack => {
   const { title, price, rating, description, image } = NativeStack.route.params;
-  const { addFavorite, state, changeScreen } = useContext(StoreContext)
+  const { addFavorite, state, changeScreen ,addToCart} = useContext(StoreContext)
   const [isFavorite, setIsFavorite] = useState(false)
   const [arrayProduct, setArrayProducts] = useState([])
 
+
+  useEffect(()=>{
+    storeCart(JSON.stringify(state.cartArray))
+  },[state.cartArray])
 
   useEffect(() => {
     changeScreen("DetailScreen")
     const backAction = () => {
       changeScreen("HomeScreen")
-
     };
-
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       backAction,
     );
-
     return () => backHandler.remove();
 
   }, [])
 
   useEffect(() => {
-
     setArrayProducts(state.favoritesArray)
     storeData(JSON.stringify(state.favoritesArray))
     const isFavorite = state.favoritesArray.some(product => product.id === NativeStack.route.params.id)
@@ -43,6 +43,13 @@ const Detail = NativeStack => {
     } catch (e) {
     }
   };
+  const storeCart = async (value) => {
+    try {
+      await AsyncStorage.setItem('cart', value);
+    } catch (e) {
+    }
+  };
+
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -73,7 +80,11 @@ const Detail = NativeStack => {
           <TouchableOpacity>
             <Feather name='shopping-bag' size={32} color={"#000"} />
             <View style={styles.containerCardItems}>
-              <Text style={styles.textCardItem}>0</Text>
+              <Text style={styles.textCardItem}>
+                {
+                  state.cartArray.length
+                }
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -184,7 +195,18 @@ const Detail = NativeStack => {
         </View>
 
         <TouchableOpacity
-          onPress={() => { }}
+          onPress={() => { 
+            const isAdded = state.cartArray.some( product => product.id === NativeStack.route.params.id )
+            if(!isAdded){
+              addToCart(NativeStack.route.params)
+            }else{
+              Snackbar.show(
+                {
+                  text: 'El producto ya esta en el carrito.'
+                }
+              )
+            }
+          }}
           style={{
             flexDirection: 'row',
             alignItems: 'center',

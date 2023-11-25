@@ -7,6 +7,7 @@ export const StoreProvider = ({children}) => {
     const [state, dispatch] = useReducer(StoreReducer, initialState);
     useEffect( () => {
        getData()
+       getCart()
     }, [])
 
   const getData = async () => {
@@ -20,9 +21,26 @@ export const StoreProvider = ({children}) => {
     }
   };
 
+
+  const getCart = async () => {
+    try {
+      const arrayCartString = await AsyncStorage.getItem('cart');
+      if (arrayCartString !== null) {
+        const arrayCartJson = arrayCartString !=null ? JSON.parse(arrayCartString) : [];
+        initalCart(arrayCartJson);
+    }
+    } catch (e) {
+    }
+  };
+
+
     const initalFavorites = (objectProduct) => {
         dispatch({type: 'INITIAL_DATA', payload: objectProduct})
     }
+
+    const initalCart = (objectProduct) => {
+      dispatch({type: 'INITIAL_CART', payload: objectProduct})
+  }
 
     const addFavorite = (objectProduct) => {
         dispatch({type: 'ADD_FAVORITE', payload: objectProduct})
@@ -36,9 +54,18 @@ export const StoreProvider = ({children}) => {
         dispatch({type:'REMOVE_FAVORITE', payload: objectProduct})
     }
 
+    const addToCart = (objectProduct) => {
+      dispatch({type: 'ADD_TO_CART', payload: objectProduct})
+    }
+
+    const removeToCart = (objectProduct) => {
+      dispatch({type:'REMOVE_TO_CART', payload: objectProduct})
+  }
+
+
     return (
         <StoreContext.Provider
-         value={{state,addFavorite,removeFavorite,changeScreen}}>
+         value={{state,addFavorite,removeFavorite,changeScreen,addToCart,removeToCart}}>
             {children}
         </StoreContext.Provider>
 

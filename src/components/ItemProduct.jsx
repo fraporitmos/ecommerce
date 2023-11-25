@@ -6,8 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ItemProduct = ({ img, title, price, nav, object }) => {
   const { state, removeFavorite } = useContext(StoreContext)
-
-
   useEffect(() => {
     storeData(JSON.stringify(state.favoritesArray))
   }, [state.favoritesArray])
@@ -22,7 +20,9 @@ const ItemProduct = ({ img, title, price, nav, object }) => {
   return (
     <View style={styles.containerCard}>
 
-      <TouchableOpacity onPress={() => { nav.navigation.navigate("DetailScreen", object) }}>
+      <TouchableOpacity onPress={() => { 
+          state.currentScreen != 'FavoriteScreen' ? nav.navigation.navigate("DetailScreen", object) : null
+       }}>
         <Image style={styles.imageCard}
           source={{ uri: img }} />
         <TouchableOpacity
@@ -40,7 +40,7 @@ const ItemProduct = ({ img, title, price, nav, object }) => {
           }}
           style={{
             position: 'absolute',
-            right: 4, display: state.currentScreen === 'DetailScreen' ? 'flex' : 'none'
+            right: 4, display: state.currentScreen === 'FavoriteScreen' ? 'flex' : 'none'
           }}>
           <Ionicons name="trash" size={24} color="#000" />
         </TouchableOpacity>
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fff',
     margin: 8
+    
   },
 
   imageCard: {

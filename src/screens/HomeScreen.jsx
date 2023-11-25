@@ -11,7 +11,7 @@ const HomeScreen = NativeStack => {
   const [products, setProducts] = useState([])
   const [auxproducts, setAuxProducts] = useState([])
   const [enabledfilter, setEnableFilter] = useState('all')
-  const { changeScreen } = useContext(StoreContext)
+  const { changeScreen, state } = useContext(StoreContext)
 
   const filterProducts = ( type) => {
     switch (type) {
@@ -30,6 +30,30 @@ const HomeScreen = NativeStack => {
           return product.category === "women's clothing"
         })
         setProducts(filterByWoman)
+        break;
+      }
+
+      case 'jewelery': {
+        var arrayByWoman = [...auxproducts]
+        var filterByWoman = arrayByWoman.filter(product => {
+          return product.category === "jewelery"
+        })
+        setProducts(filterByWoman)
+        break;
+      }
+      case 'electronics': {
+        var arrayByWoman = [...auxproducts]
+        var filterByWoman = arrayByWoman.filter(product => {
+          return product.category === "electronics"
+        })
+        setProducts(filterByWoman)
+        break;
+      }
+
+      case 'price' :{
+        var arrayByPrice = [...auxproducts]
+        arrayByPrice.sort((a,b) => a.price - b.price)
+        setProducts(arrayByPrice)
         break;
       }
 
@@ -87,7 +111,11 @@ const HomeScreen = NativeStack => {
         <TouchableOpacity>
           <Icon name='shopping-bag' size={32} color={"#000"} />
           <View style={styles.containerCardItems}>
-            <Text style={styles.textCardItem}>0</Text>
+            <Text style={styles.textCardItem}>
+              {
+                state.cartArray.length
+              }
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -107,7 +135,7 @@ const HomeScreen = NativeStack => {
         </View>
         <TouchableOpacity 
         onPress={()=>{
-          //TODO: add price filter
+          filterProducts('price')
         }}
         style={styles.containerIconFilter}>
           <Icon name='filter' size={28} color={"#fff"} />
@@ -172,21 +200,22 @@ const HomeScreen = NativeStack => {
             }}
           />
           <ButtonPrimary
-            textButton={"Kids"}
+            textButton={"Jewelery"}
             onPress={() => { 
-              setEnableFilter("kids") 
-            //TODO: Filter By Kids
+              setEnableFilter("jewelery") 
+              filterProducts( 'jewelery')
+
 
             }}
             stylesAdd={{
               container: {
-                width: 80,
+                width: 90,
                 marginLeft: 12,
                 height: 40,
-                backgroundColor: enabledfilter === 'kids' ? '#000' : '#F2F2F2'
+                backgroundColor: enabledfilter === 'jewelery' ? '#000' : '#F2F2F2'
               },
               textButton: {
-                color: enabledfilter === 'kids' ? '#fff' : '#000'
+                color: enabledfilter === 'jewelery' ? '#fff' : '#000'
               }
             }}
           />
@@ -195,11 +224,11 @@ const HomeScreen = NativeStack => {
             textButton={"Electronics"}
             onPress={() => { 
               setEnableFilter("electronics") 
-              //TODO: Filter Electronics
+              filterProducts('electronics')
             }}
             stylesAdd={{
               container: {
-                width: 80,
+                width: 110,
                 marginLeft: 12,
                 height: 40,
                 marginRight: 24,

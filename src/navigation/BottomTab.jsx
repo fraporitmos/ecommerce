@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import HomeDetailStack from './HomeDetailStack';
 import { useContext, useEffect } from 'react';
 import { StoreContext } from '../context/StoreContext';
+import CartScreen from '../screens/CartScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -65,7 +66,7 @@ function ButtomTab() {
             }
           }
         }
-        component={FavoritesScreen}
+        component={CartScreen}
         options={{
           tabBarLabel: "Cart",
           tabBarLabelStyle: { fontSize: 16, color: state.currentScreen === 'CartScreen' ? '#fff' : '#000', fontWeight: 'bold' },
