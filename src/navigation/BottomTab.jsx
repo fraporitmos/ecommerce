@@ -53,7 +53,6 @@ function ButtomTab() {
           tabBarLabelStyle: { fontSize: 16, color: state.currentScreen === 'FavoriteScreen' ? '#fff' : '#000', fontWeight: 'bold' },
           tabBarItemStyle: { backgroundColor: state.currentScreen === 'FavoriteScreen' ? '#000' : '#fff', borderRadius: 16, margin: 2, padding: 4 },
           tabBarIcon: () => <Icon name="heart" size={30} color={state.currentScreen === 'FavoriteScreen' ? "#fff" : '#000'} />
-
         }}
       />
 
